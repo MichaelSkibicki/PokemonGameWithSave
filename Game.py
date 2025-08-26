@@ -26,17 +26,19 @@ try:
         Potions = pickle.load(f)
         Balls = pickle.load(f)
         Coins = pickle.load(f)
+        Name = pickle.load(f)
         print(f"Welcome Back! You last saved with {ChosenPokemon} at level {Level}.")
         print(f"{ChosenPokemon}'s stats are:")
         for stat, value in Pokemonstats.items():
-            print(f"  {stat}: {value}")
+            if stat != "MaxHP":
+                print(f"  {stat}: {value}")
         print("Available Attacks:")
         for move in AvaliableAttacks:
             print(f"  {move['Name']} - Type: {move['Type']}, Power: {move['Power']}")
         print("Returning to most recent save point...")
         
 except EOFError:
-    print(f"Error: The pickle file is empty or corrupted. Initializing {savefile} to a default value.")
+    print(f"Error: The pickle file is outd,ated or corrupted. Initializing {savefile} to a default value.")
     ChosenPokemon = TemplateSaveData.Stats[0]
     Pointinggame = TemplateSaveData.Stats[1]
     RivalName = TemplateSaveData.Stats[2]
@@ -52,6 +54,7 @@ except EOFError:
     Potions = TemplateSaveData.Stats[8]
     Balls = TemplateSaveData.Stats[9]
     Coins = TemplateSaveData.Stats[10]
+    Name = TemplateSaveData.Stats[11]
 except FileNotFoundError:
     
     print("No File Found")
@@ -72,6 +75,7 @@ except FileNotFoundError:
     Potions = TemplateSaveData.Stats[8]
     Balls = TemplateSaveData.Stats[9]
     Coins = TemplateSaveData.Stats[10]
+    Name = TemplateSaveData.Stats[11]
     with open(savefile, 'wb') as f:
         pickle.dump(ChosenPokemon, f)
         pickle.dump(Pointinggame, f)
@@ -88,6 +92,7 @@ except FileNotFoundError:
         pickle.dump(Potions, f)
         pickle.dump(Balls, f)
         pickle.dump(Coins, f)
+        pickle.dump(Name, f)
    # Assign the template data to 'data' for immediate use
     print(f"New file created with name {savefile}") # Handle case where file doesn't exist yet
 def save():
@@ -107,9 +112,12 @@ def save():
         pickle.dump(Potions, f)
         pickle.dump(Balls, f)
         pickle.dump(Coins, f)
+        pickle.dump(Name, f)
 Playing = True
 while Playing:       
     if Pointinggame == 1:
+        Name = input("What is your name? ")
+        print(f"Hello {Name}, Welcome to the world of Pokemon!")
         picking = True          
         while picking:  
             PickedPokemon = input("Choose a pokemon: Charmander, Squirtle or Bulbasaur ")
@@ -167,7 +175,8 @@ while Playing:
         if result == 0:
             print(f"You won the battle against {RivalName}!")
             print(f"{RivalName}: Wow! You're really strong! I guess I'll let you go this time...")
-            Xp += 10
+            print(f"You gained {(5*(Level**3))//10} Xp!")
+            Xp += (5*(Level**3))//10
             Level, Xp, XpToNextLevel, Pokemonstats = level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks)
             save()
             Pointinggame = 5

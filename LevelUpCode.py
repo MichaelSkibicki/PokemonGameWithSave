@@ -4,7 +4,8 @@ def level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, Avali
     while Xp >= XpToNextLevel:
         Level += 1
         Xp -= XpToNextLevel
-        XpToNextLevel = int(XpToNextLevel * 1.5)  # Increase XP needed for next level
+        XpToNextLevel = int((5*(Level**3))//4)
+  # Increase XP needed for next level
         # Increase stats on level up
         Pokemonstats["MaxHP"] += 5
         Pokemonstats["Attack"] += 3
