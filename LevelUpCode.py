@@ -17,13 +17,69 @@ def level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, Avali
         if Level == 6:
             if ChosenPokemon == "Charmander":
                 AvaliableAttacks.append(Moves["Ember"])
-                print(f"{ChosenPokemon} learned Ember!")
+                
             elif ChosenPokemon == "Squirtle":
                 AvaliableAttacks.append(Moves["WaterGun"])
-                print(f"{ChosenPokemon} learned Water Gun!")
+                
             elif ChosenPokemon == "Bulbasaur":
                 AvaliableAttacks.append(Moves["VineWhip"])
                 print(f"{ChosenPokemon} learned Vine Whip!")
             print("Avaliable Attacks:", ", ".join(move["Name"] for move in AvaliableAttacks))
+        elif Level == 10:
+            if ChosenPokemon == "Charmander":
+                AvaliableAttacks.append(Moves["Flamethrower"])
+                print(f"{ChosenPokemon} learned Flamethrower!")
+            
+            elif ChosenPokemon == "Squirtle":
+                AvaliableAttacks.append(Moves["AquaTail"])
+                print(f"{ChosenPokemon} learned Aqua Tail!")
+                
+            elif ChosenPokemon == "Bulbasaur":
+                AvaliableAttacks.append(Moves["LeafBlade"])
+                print(f"{ChosenPokemon} learned Leaf Blade!")
+            print("Avaliable Attacks:", ", ".join(move["Name"] for move in AvaliableAttacks))
+        elif Level == 18:
+            if ChosenPokemon == "Charmander":
+                print(f"{ChosenPokemon} is trying to evolve!")
+                ChosenPokemon = "Charmeleon"
+                Pokemonstats.update({"Name": "Charmeleon", "Type": "Fire"})
+                print(f"Congratulations! Your Charmander evolved into Charmeleon!")
+            elif ChosenPokemon == "Squirtle":
+                print(f"{ChosenPokemon} is trying to evolve!")
+                ChosenPokemon = "Wartortle"
+                Pokemonstats.update({"Name": "Wartortle", "Type": "Water"})
+                print(f"Congratulations! Your Squirtle evolved into Wartortle!")
+            elif ChosenPokemon == "Bulbasaur":
+                print(f"{ChosenPokemon} is trying to evolve!")
+                ChosenPokemon = "Ivysaur"
+                Pokemonstats.update({"Name": "Ivysaur", "Type": "Grass"})
+                print(f"Congratulations! Your Bulbasaur evolved into Ivysaur!")
+        elif Level == 30:
+            if ChosenPokemon == "Charmeleon":
+                AvaliableAttacks.append(Moves["FlareBlitz"])
+                print(f"{ChosenPokemon} learned Flare Blitz!")
+            elif ChosenPokemon == "Wartortle":
+                AvaliableAttacks.append(Moves["HydroPump"])
+                print(f"{ChosenPokemon} learned Hydro Pump!")
+            elif ChosenPokemon == "Ivysaur":
+                AvaliableAttacks.append(Moves["SolarBeam"])
+                print(f"{ChosenPokemon} learned Solar Beam!")
+            print("Avaliable Attacks:", ", ".join(move["Name"] for move in AvaliableAttacks))
+        elif Level == 36:
+            if ChosenPokemon == "Charmeleon":
+                print(f"{ChosenPokemon} is trying to evolve!")
+                ChosenPokemon = "Charizard"
+                Pokemonstats.update({"Name": "Charizard", "Type": "Fire"})
+                print(f"Congratulations! Your Charmeleon evolved into Charizard!")
+            elif ChosenPokemon == "Wartortle":
+                print(f"{ChosenPokemon} is trying to evolve!")
+                ChosenPokemon = "Blastoise"
+                Pokemonstats.update({"Name": "Blastoise", "Type": "Water"})
+                print(f"Congratulations! Your Wartortle evolved into Blastoise!")
+            elif ChosenPokemon == "Ivysaur":
+                print(f"{ChosenPokemon} is trying to evolve!")
+                ChosenPokemon = "Venusaur"
+                Pokemonstats.update({"Name": "Venusaur", "Type": "Grass"})
+                print(f"Congratulations! Your Ivysaur evolved into Venusaur!")
     # Always return updated values
-    return Level, Xp, XpToNextLevel, Pokemonstats
+    return Level, Xp, XpToNextLevel, Pokemonstats, ChosenPokemon, AvaliableAttacks
