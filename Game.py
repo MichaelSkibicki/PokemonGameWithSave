@@ -6,6 +6,7 @@ from TemplateSaveData import PokemonChoices
 from Battlecode import battlecode
 import Battlecode
 from LevelUpCode import level_up
+Battletype = "None"
 savefile = input("What was your save file name? ")
 
 try:
@@ -38,7 +39,7 @@ try:
         print("Returning to most recent save point...")
         
 except EOFError:
-    print(f"Error: The pickle file is outd,ated or corrupted. Initializing {savefile} to a default value.")
+    print(f"Error: The pickle file is outdated or corrupted. Initializing {savefile} to a default value.")
     ChosenPokemon = TemplateSaveData.Stats[0]
     Pointinggame = TemplateSaveData.Stats[1]
     RivalName = TemplateSaveData.Stats[2]
@@ -171,13 +172,14 @@ while Playing:
         save()
     elif Pointinggame == 4:
         print(f"{RivalName}: Let's see how strong your {ChosenPokemon} is against my {Rivalpokemon}!")
-        result = battlecode()
+        Battletype = "Rival"
+        result = battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp, XpToNextLevel, RivalName, Rivalpokemon, Pokemontype, Pokemonstats, Rivalstats, Moves, AvaliableAttacks)
         if result == 0:
             print(f"You won the battle against {RivalName}!")
             print(f"{RivalName}: Wow! You're really strong! I guess I'll let you go this time...")
             print(f"You gained {(5*(Level**3))//10} Xp!")
             Xp += (5*(Level**3))//10
-            Level, Xp, XpToNextLevel, Pokemonstats = level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks)
+            Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks = level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks)
             save()
             Pointinggame = 5
         else:
@@ -186,5 +188,6 @@ while Playing:
     elif Pointinggame == 5:
         Playing = False
 print("End of Demo, thank you for playing!")
+Pokemonstats['HP'] = Pokemonstats['MaxHP']
 save()
 
