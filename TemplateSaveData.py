@@ -5,7 +5,8 @@ RivalPokemon = "None"
 PokemonType="None"
 Name = "None"
 Level = 5
-
+Location = "None"
+AccessableLocations = []
 Xp = 0
 Potions = 0
 Balls = 0
@@ -16,7 +17,7 @@ SquirtleStats = {"Name": "Squirtle", "Type": "Water", "HP": 44, "MaxHP": 44, "At
 BulbasaurStats = {"Name": "Bulbasaur", "Type": "Grass", "HP": 45, "MaxHP": 45, "Attack": 49, "Defense": 49, "Speed": 45, "Weakness": ["Fire", "Ice", "Poison", "Flying", "Bug"], "Resistance": ["Water", "Grass", "Ground", "Rock"]}
 PokemonStats = {"Name": "None", "Type": "None", "HP": 10, "Attack": 10, "Defense": 10, "Speed": 10}
 RivalStats = {"Name": "None", "Type": "None", "HP": 10, "Attack": 10, "Defense": 10, "Speed": 10}
-Stats = [PokemonChosen, PointinGame, RivalName, RivalPokemon, PokemonType, Level, Xp, XpToNextLevel, Potions, Balls, Coins, Name]
+Stats = [PokemonChosen, PointinGame, RivalName, RivalPokemon, PokemonType, Level, Xp, XpToNextLevel, Potions, Balls, Coins, Name, Location, AccessableLocations]
 PokemonChoices = ["Charmander", "Bulbasaur", "Squirtle"]
 Moves = {
     "Tackle": {"Name": "Tackle", "Type": "Normal", "Power": 20},
