@@ -92,6 +92,9 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                     if Pokemonstats["HP"] <= 0:
                         print(f"{ChosenPokemon} has fainted and cannot be healed!")
                         time.sleep(0.5)
+                    elif Pokemonstats['HP'] == Pokemonstats['MaxHP']:
+                        print(f"{ChosenPokemon} is a full health and cannot be healed")
+                        time.sleep(0.5)
                     else:
                         if Potions > 0:
                             heal_amount = min(20, Pokemonstats['MaxHP'] - Pokemonstats['HP'])
@@ -200,6 +203,9 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                 elif battlepick.lower() == "heal":
                     if Pokemonstats["HP"] <= 0:
                         print(f"{ChosenPokemon} has fainted and cannot be healed!")
+                        time.sleep(0.5)
+                    elif Pokemonstats['HP'] == Pokemonstats['MaxHP']:
+                        print(f"{ChosenPokemon} is a full health and cannot be healed")
                         time.sleep(0.5)
                     else:
                         if Potions > 0:
@@ -315,6 +321,9 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                     if Pokemonstats["HP"] <= 0:
                         print(f"{ChosenPokemon} has fainted and cannot be healed!")
                         time.sleep(0.5)
+                    elif Pokemonstats['HP'] == Pokemonstats['MaxHP']:
+                        print(f"{ChosenPokemon} is a full health and cannot be healed")
+                        time.sleep(0.5)
                     else:
                         if Potions > 0:
                             heal_amount = min(20, Pokemonstats['MaxHP'] - Pokemonstats['HP'])
@@ -335,6 +344,9 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                 elif battlepick.lower() == "heal":
                     if Pokemonstats["HP"] <= 0:
                         print(f"{ChosenPokemon} has fainted and cannot be healed!")
+                        time.sleep(0.5)
+                    elif Pokemonstats['HP'] == Pokemonstats['MaxHP']:
+                        print(f"{ChosenPokemon} is a full health and cannot be healed")
                         time.sleep(0.5)
                     else:
                         if Potions > 0:
@@ -440,6 +452,9 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                 elif battlepick.lower() == "heal":
                     if Pokemonstats["HP"] <= 0:
                         print(f"{ChosenPokemon} has fainted and cannot be healed!")
+                        time.sleep(0.5)
+                    elif Pokemonstats['HP'] == Pokemonstats['MaxHP']:
+                        print(f"{ChosenPokemon} is a full health and cannot be healed")
                         time.sleep(0.5)
                     else:
                         if Potions > 0:

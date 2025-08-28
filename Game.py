@@ -29,6 +29,9 @@ try:
         Balls = pickle.load(f)
         Coins = pickle.load(f)
         Name = pickle.load(f)
+        Location = pickle.load(f)
+        AccessableLocations = pickle.load(f)
+        half_length = pickle.load(f)
         print(f"Welcome Back! You last saved with {ChosenPokemon} at level {Level}.")
 
         print(f"{ChosenPokemon}'s stats are:")
@@ -78,6 +81,9 @@ except EOFError:
     Balls = TemplateSaveData.Stats[9]
     Coins = TemplateSaveData.Stats[10]
     Name = TemplateSaveData.Stats[11]
+    Location = TemplateSaveData.Stats[12]
+    AccessableLocations = TemplateSaveData.Stats[13]
+    half_length = len(AccessableLocations) // 2
 except FileNotFoundError:
     
     print("No File Found")
@@ -99,6 +105,9 @@ except FileNotFoundError:
     Balls = TemplateSaveData.Stats[9]
     Coins = TemplateSaveData.Stats[10]
     Name = TemplateSaveData.Stats[11]
+    Location = TemplateSaveData.Stats[12]
+    AccessableLocations = TemplateSaveData.Stats[13]
+    half_length = len(AccessableLocations) // 2
     with open(savefile, 'wb') as f:
         pickle.dump(ChosenPokemon, f)
         pickle.dump(Pointinggame, f)
@@ -116,6 +125,9 @@ except FileNotFoundError:
         pickle.dump(Balls, f)
         pickle.dump(Coins, f)
         pickle.dump(Name, f)
+        pickle.dump(Location, f)
+        pickle.dump(AccessableLocations, f)
+        pickle.dump(half_length, f)
    # Assign the template data to 'data' for immediate use
     print(f"New file created with name {savefile}") # Handle case where file doesn't exist yet
 def save():
@@ -136,6 +148,9 @@ def save():
         pickle.dump(Balls, f)
         pickle.dump(Coins, f)
         pickle.dump(Name, f)
+        pickle.dump(Location, f)
+        pickle.dump(AccessableLocations, f)
+        pickle.dump(half_length, f)
 Playing = True
 while Playing:       
     if Pointinggame == 1:
@@ -242,12 +257,11 @@ while Playing:
             time.sleep(0.5)
 
             print(f"{RivalName}: Haha! I win! Lets battle again! Here, I'll heal your {ChosenPokemon}.")
+            Pokemonstats['HP'] = Pokemonstats['MaxHP']
             time.sleep(0.5)
-
     elif Pointinggame == 5:
         print(f"{RivalName}: I have to go now, but I'll see you around {Name}!")
         time.sleep(0.5)
-
         print(f"{RivalName}: Oh! and Before I forget, Heres a gift!")
         time.sleep(0.5)
 
@@ -264,13 +278,10 @@ while Playing:
     if Pointinggame == 6:
         print("Well Done!")
         time.sleep(0.5)
-
         print("Now, you can explore the world of Pokemon!")
         time.sleep(0.5)
-
         print("You can battle wild Pokemon, catch them, and train your Pokemon to become stronger!")
         time.sleep(0.5)
-
         print("You can also visit Pokemarts to buy items, and heal your Pokemon at Pokecenters!")
         time.sleep(0.5)
         print("You can also challenge other trainers to battles while on your journey!")
@@ -280,6 +291,31 @@ while Playing:
         Pointinggame = 7
         save()
     if Pointinggame == 7:
+        Location = "Pallet Town"
+        print(f"You are currently in {Location}")
+        AccessableLocations = ["Route 1", "Route 21", "route 1", "route 21"]
+        valid_walkchoices = [p.lower() for p in AccessableLocations]
+        print("Accessable Locations:")
+        half_length = len(AccessableLocations) // 2
+        for i in range(half_length):
+            print(f"  {AccessableLocations[i]}")
+        Picking = True
+        while Picking:
+            WalkTo = input("Where do you want to go? ")
+            if WalkTo in AccessableLocations:
+                if AccessableLocations[valid_walkchoices.index(WalkTo.lower())] == "Route 21":
+                    if Level >= 20:
+                        Location = "Route 21"
+                    else:
+                        print("You Are Not High Enough Level To Access This Location")
+                        continue
+                Location = AccessableLocations[valid_walkchoices.index(WalkTo.lower())]
+                print(f"While walking to {Location}")
+                print(Location)
+
+                Picking = False
+            else:
+                print("Invalid choice, try again")
         Playing = False
 print("End of Demo, thank you for playing!")
 Pokemonstats['HP'] = Pokemonstats['MaxHP']
