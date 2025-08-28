@@ -310,9 +310,8 @@ while Playing:
                         print("You Are Not High Enough Level To Access This Location")
                         continue
                 Location = AccessableLocations[valid_walkchoices.index(WalkTo.lower())]
-                print(f"While walking to {Location}")
+                print(f"While walking to {Location}, you encounter a Pokemon!")
                 print(Location)
-
                 Picking = False
             else:
                 print("Invalid choice, try again")
