@@ -5,6 +5,7 @@ import time
 Battlechoice = "None"
 BattlePokemonStats = []
 def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp, XpToNextLevel, RivalName, Rivalpokemon, Pokemontype, Pokemonstats, Rivalstats, Moves, AvaliableAttacks):
+    print("We havent added the ability to switch out pokemon yet, but it will be added")
     if Battletype == "Rival":
         if Pokemonstats['Speed'] >= Rivalstats['Speed']:
             time.sleep(0.5)
@@ -155,7 +156,7 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                         if isinstance(Rivalstats['Resistance'], list):
                             if chosen_move['Type'] in Rivalstats['Resistance']:
                                 damage //= 2
-                         
+                        
                         elif chosen_move['Type'] == Rivalstats['Resistance']:
                             damage //= 2
                        
@@ -261,21 +262,21 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                 
                     if 0 <= move_choice < len(AvaliableAttacks):
                         chosen_move = AvaliableAttacks[move_choice]
-                        damage = chosen_move['Power']//10 + (Pokemonstats['Attack'] // 3) - (Rivalstats['Defense'] // 5)
-                        if isinstance(Rivalstats['Weakness'], list):
-                            if chosen_move['Type'] in Rivalstats['Weakness']:
+                        damage = chosen_move['Power']//10 + (Pokemonstats['Attack'] // 3) - (BattlePokemonStats['Defense'] // 5)
+                        if isinstance(BattlePokemonStats['Weakness'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Weakness']:
                                 damage *= 2
                              
-                        elif chosen_move['Type'] == Rivalstats['Weakness']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Weakness']:
                             damage *= 2
                        
 
                         # Check for resistance
-                        if isinstance(Rivalstats['Resistance'], list):
-                            if chosen_move['Type'] in Rivalstats['Resistance']:
+                        if isinstance(BattlePokemonStats['Resistance'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Resistance']:
                                 damage //= 2
                        
-                        elif chosen_move['Type'] == Rivalstats['Resistance']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Resistance']:
                             damage //= 2
                          
                         else:
@@ -283,18 +284,18 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                         BattlePokemonStats['HP'] -= damage
                         print(f"{ChosenPokemon} used {chosen_move['Name']}! It dealt {damage} damage to {BattleChoice}.")
                         time.sleep(0.5)
-                        if isinstance(Rivalstats['Weakness'], list):
-                            if chosen_move['Type'] in Rivalstats['Weakness']:
+                        if isinstance(BattlePokemonStats['Weakness'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Weakness']:
                                 print("It's super effective!")
-                        elif chosen_move['Type'] == Rivalstats['Weakness']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Weakness']:
                             print("It's super effective!")
 
                         # Check for resistance
-                        if isinstance(Rivalstats['Resistance'], list):
-                            if chosen_move['Type'] in Rivalstats['Resistance']:
+                        if isinstance(BattlePokemonStats['Resistance'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Resistance']:
 
                                 print("It's not very effective...")
-                        elif chosen_move['Type'] == Rivalstats['Resistance']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Resistance']:
                             
                             print("It's not very effective...")
                         time.sleep(0.5)
@@ -392,21 +393,21 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                         continue
                     if 0 <= move_choice < len(AvaliableAttacks):
                         chosen_move = AvaliableAttacks[move_choice]
-                        damage = chosen_move['Power']//10 + (Pokemonstats['Attack'] // 3) - (Rivalstats['Defense'] // 5)
-                        if isinstance(Rivalstats['Weakness'], list):
-                            if chosen_move['Type'] in Rivalstats['Weakness']:
+                        damage = chosen_move['Power']//10 + (Pokemonstats['Attack'] // 3) - (BattlePokemonStats['Defense'] // 5)
+                        if isinstance(BattlePokemonStats['Weakness'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Weakness']:
                                 damage *= 2
                 
-                        elif chosen_move['Type'] == Rivalstats['Weakness']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Weakness']:
                             damage *= 2
                 
 
                         # Check for resistance
-                        if isinstance(Rivalstats['Resistance'], list):
-                            if chosen_move['Type'] in Rivalstats['Resistance']:
+                        if isinstance(BattlePokemonStats['Resistance'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Resistance']:
                                 damage //= 2
                             
-                        elif chosen_move['Type'] == Rivalstats['Resistance']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Resistance']:
                             damage //= 2
 
                         else:
@@ -414,18 +415,18 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
                         BattlePokemonStats['HP'] -= damage
                         
                         print(f"{ChosenPokemon} used {chosen_move['Name']}! It dealt {damage} damage to {BattleChoice}.")
-                        if isinstance(Rivalstats['Weakness'], list):
-                            if chosen_move['Type'] in Rivalstats['Weakness']:
+                        if isinstance(BattlePokemonStats['Weakness'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Weakness']:
                                 print("It's super effective!")
-                        elif chosen_move['Type'] == Rivalstats['Weakness']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Weakness']:
                             print("It's super effective!")
 
                         # Check for resistance
-                        if isinstance(Rivalstats['Resistance'], list):
-                            if chosen_move['Type'] in Rivalstats['Resistance']:
+                        if isinstance(BattlePokemonStats['Resistance'], list):
+                            if chosen_move['Type'] in BattlePokemonStats['Resistance']:
 
                                 print("It's not very effective...")
-                        elif chosen_move['Type'] == Rivalstats['Resistance']:
+                        elif chosen_move['Type'] == BattlePokemonStats['Resistance']:
                             
                             print("It's not very effective...")
                         time.sleep(0.5)
