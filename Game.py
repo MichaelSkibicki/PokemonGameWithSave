@@ -6,6 +6,8 @@ import pickle
 from TemplateSaveData import PokemonChoices
 from Battlecode import battlecode
 import Battlecode
+from catchingcode import catchPokemon
+import catchingcode
 from LevelUpCode import level_up
 Battletype = "None"
 savefile = input("What was your save file name? ")
@@ -32,6 +34,10 @@ try:
         Location = pickle.load(f)
         AccessableLocations = pickle.load(f)
         half_length = pickle.load(f)
+        PokemonOnTeam = pickle.load(f)
+        SecondPokemon = pickle.load(f)
+        SecondPokemonStats = pickle.load(f)
+        SecondPokemonMoves = pickle.load(f)
         print(f"Welcome Back! You last saved with {ChosenPokemon} at level {Level}.")
 
         print(f"{ChosenPokemon}'s stats are:")
@@ -58,6 +64,28 @@ try:
         for move in AvaliableAttacks:
             print(f"  {move['Name']} - Type: {move['Type']}, Power: {move['Power']}")
             time.sleep(0.5)
+        if SecondPokemon != "None":
+            print(f"Your second pokemon is {SecondPokemon}")
+            print(f"{SecondPokemon}'s stats are:")
+            for stat, value in SecondPokemonStats.items():
+                if stat not in ["Weakness", "Resistance"]:
+                    if stat != "MaxHP":
+                        print(f"  {stat}: {value}")
+                        time.sleep(0.5)
+
+            if isinstance(SecondPokemonStats["Weakness"], list):
+                print("  Weakness:", ", ".join(SecondPokemonStats["Weakness"]))
+            else:
+                print("  Weakness:", SecondPokemonStats["Weakness"])
+            time.sleep(0.5)
+            if isinstance(SecondPokemonStats["Resistance"], list):
+                print("  Resistance:", ", ".join(SecondPokemonStats["Resistance"]))
+            
+            else:
+                print("  Resistance:", SecondPokemonStats["Resistance"])
+            print(f"{SecondPokemon}'s moves are:")
+            for move in SecondPokemonMoves:
+                print(f"  {move['Name']} - Type: {move['Type']}, Power: {move['Power']}")
         print(f"You have {Potions} Potions, {Balls} Pokeballs and {Coins} Coins.")
         time.sleep(0.5)
         print("Returning to most recent save point...")
@@ -84,6 +112,10 @@ except EOFError:
     Location = TemplateSaveData.Stats[12]
     AccessableLocations = TemplateSaveData.Stats[13]
     half_length = len(AccessableLocations) // 2
+    PokemonOnTeam = TemplateSaveData.PokeomnOnTeam
+    SecondPokemon = TemplateSaveData.Stats[14]
+    SecondPokemonStats = TemplateSaveData.Stats[15]
+    SecondPokemonMoves = TemplateSaveData.SecondPokemonMoves
 except FileNotFoundError:
     
     print("No File Found")
@@ -108,6 +140,10 @@ except FileNotFoundError:
     Location = TemplateSaveData.Stats[12]
     AccessableLocations = TemplateSaveData.Stats[13]
     half_length = len(AccessableLocations) // 2
+    PokemonOnTeam = TemplateSaveData.PokeomnOnTeam
+    SecondPokemon = TemplateSaveData.Stats[14]
+    SecondPokemonStats = TemplateSaveData.Stats[15]
+    SecondPokemonMoves = TemplateSaveData.SecondPokemonMoves
     with open(savefile, 'wb') as f:
         pickle.dump(ChosenPokemon, f)
         pickle.dump(Pointinggame, f)
@@ -128,6 +164,10 @@ except FileNotFoundError:
         pickle.dump(Location, f)
         pickle.dump(AccessableLocations, f)
         pickle.dump(half_length, f)
+        pickle.dump(PokemonOnTeam, f)
+        pickle.dump(SecondPokemon, f)
+        pickle.dump(SecondPokemonStats, f)
+        pickle.dump(SecondPokemonMoves, f)
    # Assign the template data to 'data' for immediate use
     print(f"New file created with name {savefile}") # Handle case where file doesn't exist yet
 def save():
@@ -151,6 +191,10 @@ def save():
         pickle.dump(Location, f)
         pickle.dump(AccessableLocations, f)
         pickle.dump(half_length, f)
+        pickle.dump(PokemonOnTeam, f)
+        pickle.dump(SecondPokemon, f)
+        pickle.dump(SecondPokemonStats, f)
+        pickle.dump(SecondPokemonMoves, f)
 Playing = True
 while Playing:       
     if Pointinggame == 1:
@@ -169,12 +213,16 @@ while Playing:
                 if ChosenPokemon == "Charmander":
                     Pokemontype = "Fire"
                     Pokemonstats = TemplateSaveData.CharmanderStats
+                    PokemonOnTeam.append("Charmander")
                 elif ChosenPokemon == "Bulbasaur":
                     Pokemontype = "Grass"
                     Pokemonstats = TemplateSaveData.BulbasaurStats
+                    PokemonOnTeam.append("Bulbasaur")
                 else:
                     Pokemontype = "Water"
                     Pokemonstats = TemplateSaveData.SquirtleStats
+                    PokemonOnTeam.append("Squirtle")
+
                 save()
                 print(f"{ChosenPokemon}'s stats are:")
                 time.sleep(0.5)
@@ -258,6 +306,7 @@ while Playing:
 
             print(f"{RivalName}: Haha! I win! Lets battle again! Here, I'll heal your {ChosenPokemon}.")
             Pokemonstats['HP'] = Pokemonstats['MaxHP']
+            Rivalstats['HP'] = Rivalstats['MaxHP']
             time.sleep(0.5)
     elif Pointinggame == 5:
         print(f"{RivalName}: I have to go now, but I'll see you around {Name}!")
@@ -311,6 +360,11 @@ while Playing:
                         continue
                 Location = AccessableLocations[valid_walkchoices.index(WalkTo.lower())]
                 print(f"While walking to {Location}, you encounter a Pokemon!")
+                SecondPokemonStats, SecondPokemon,  PokemonOnTeam, Battlepokemon, SecondPokemonMoves= catchPokemon(SecondPokemonStats, SecondPokemon, PokemonOnTeam, TemplateSaveData.BattlePokemon, SecondPokemonMoves)
+                print(f"You caught {SecondPokemon}!")
+                print("The Pokemon on your team are:")
+                for i in range(len(PokemonOnTeam)):
+                    print(f"  {PokemonOnTeam[i]}")
                 print(Location)
                 Picking = False
             else:

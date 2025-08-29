@@ -6,7 +6,10 @@ PokemonType="None"
 Name = "None"
 Level = 5
 Location = "None"
+SecondPokemon = "None"
+SecondPokemonStats = []
 AccessableLocations = []
+PokeomnOnTeam = []
 Xp = 0
 Potions = 0
 Balls = 0
@@ -17,8 +20,9 @@ SquirtleStats = {"Name": "Squirtle", "Type": "Water", "HP": 44, "MaxHP": 44, "At
 BulbasaurStats = {"Name": "Bulbasaur", "Type": "Grass", "HP": 45, "MaxHP": 45, "Attack": 49, "Defense": 49, "Speed": 45, "Weakness": ["Fire", "Ice", "Poison", "Flying", "Bug"], "Resistance": ["Water", "Grass", "Ground", "Rock"]}
 PokemonStats = {"Name": "None", "Type": "None", "HP": 10, "Attack": 10, "Defense": 10, "Speed": 10}
 RivalStats = {"Name": "None", "Type": "None", "HP": 10, "Attack": 10, "Defense": 10, "Speed": 10}
-Stats = [PokemonChosen, PointinGame, RivalName, RivalPokemon, PokemonType, Level, Xp, XpToNextLevel, Potions, Balls, Coins, Name, Location, AccessableLocations]
+Stats = [PokemonChosen, PointinGame, RivalName, RivalPokemon, PokemonType, Level, Xp, XpToNextLevel, Potions, Balls, Coins, Name, Location, AccessableLocations, SecondPokemon, SecondPokemonStats]
 PokemonChoices = ["Charmander", "Bulbasaur", "Squirtle"]
+SecondPokemonMoves = []
 Moves = {
     "Tackle": {"Name": "Tackle", "Type": "Normal", "Power": 20},
     "VineWhip": {"Name": "Vine Whip", "Type": "Grass", "Power": 40},
@@ -29,7 +33,10 @@ Moves = {
     "LeafBlade": {"Name": "Leaf Blade", "Type": "Grass", "Power": 90},
     "FlareBlitz": {"Name": "Flare Blitz", "Type": "Fire", "Power": 120},
     "HydroPump": {"Name": "Hydro Pump", "Type": "Water", "Power": 120},
-    "SolarBeam": {"Name": "Solar Beam", "Type": "Grass", "Power": 120}
+    "SolarBeam": {"Name": "Solar Beam", "Type": "Grass", "Power": 120},
+    "FuryCutter": {"Name": "Fury Cutter", "Type": "Bug", "Power": 40},
+    "Gust": {"Name": "Gust", "Type": "Flying", "Power": 40},
+    "Pound": {"Name": "Pound", "Type": "Normal", "Power": 40}
 }
 BattlePokemon = ["Pidgey", "Rattata", "Caterpie", "Weedle", "Spearow"]
 PidgeyStats = {"Name": "Pidgey", "Type": "Flying", "HP": 40, "MaxHP": 40, "Attack": 45, "Defense": 40, "Speed": 56, "Weakness": ["Electric", "Ice", "Rock"], "Resistance": ["Grass", "Fighting", "Bug"]}
