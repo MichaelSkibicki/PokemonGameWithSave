@@ -29,6 +29,7 @@ def catchPokemon(SecondPokemonStats, SecondPokemon, PokemonOnTeam, BattlePokemon
                 SecondPokemonStats = TemplateSaveData.SpearowStats
                 SecondPokemonMoves.append(TemplateSaveData.Moves["Gust"])
             PokemonOnTeam.append(SecondPokemon)
+            Balls -= 1
             return 1, SecondPokemonStats, SecondPokemon, PokemonOnTeam, BattlePokemon, SecondPokemonMoves, Balls
         else:
             print("You dont have any pokeballs left!")
