@@ -9,8 +9,11 @@ Location = "None"
 SecondPokemon = "None"
 SecondPokemonStats = []
 AccessableLocations = []
-PokeomnOnTeam = []
+PokemonOnTeam = []
 Xp = 0
+SecondPokemonXp = 0
+SecondPokemonLevel = 5
+SecondPokemonXpNeeded = 62
 Potions = 0
 Balls = 0
 Coins = 0
@@ -20,7 +23,7 @@ SquirtleStats = {"Name": "Squirtle", "Type": "Water", "HP": 44, "MaxHP": 44, "At
 BulbasaurStats = {"Name": "Bulbasaur", "Type": "Grass", "HP": 45, "MaxHP": 45, "Attack": 49, "Defense": 49, "Speed": 45, "Weakness": ["Fire", "Ice", "Poison", "Flying", "Bug"], "Resistance": ["Water", "Grass", "Ground", "Rock"]}
 PokemonStats = {"Name": "None", "Type": "None", "HP": 10, "Attack": 10, "Defense": 10, "Speed": 10}
 RivalStats = {"Name": "None", "Type": "None", "HP": 10, "Attack": 10, "Defense": 10, "Speed": 10}
-Stats = [PokemonChosen, PointinGame, RivalName, RivalPokemon, PokemonType, Level, Xp, XpToNextLevel, Potions, Balls, Coins, Name, Location, AccessableLocations, SecondPokemon, SecondPokemonStats]
+Stats = [PokemonChosen, PointinGame, RivalName, RivalPokemon, PokemonType, Level, Xp, XpToNextLevel, Potions, Balls, Coins, Name, Location, AccessableLocations, SecondPokemon, SecondPokemonStats, SecondPokemonXp, SecondPokemonLevel, SecondPokemonXpNeeded]
 PokemonChoices = ["Charmander", "Bulbasaur", "Squirtle"]
 SecondPokemonMoves = []
 Moves = {
@@ -36,7 +39,16 @@ Moves = {
     "SolarBeam": {"Name": "Solar Beam", "Type": "Grass", "Power": 120},
     "FuryCutter": {"Name": "Fury Cutter", "Type": "Bug", "Power": 40},
     "Gust": {"Name": "Gust", "Type": "Flying", "Power": 40},
-    "Pound": {"Name": "Pound", "Type": "Normal", "Power": 40}
+    "Pound": {"Name": "Pound", "Type": "Normal", "Power": 40},
+    "AirCutter": {"Name": "Air Cutter", "Type": "Flying", "Power": 60},
+    "BugBite": {"Name": "Bug Bite", "Type": "Bug", "Power": 60},
+    "Swift": {"Name": "Swift", "Type": "Normal", "Power": 60},
+    "MegaKick": {"Name": "Mega Kick", "Type": "Normal", "Power": 120},
+    "Aeroblast": {"Name": "Aeroblast", "Type": "Flying", "Power": 100},
+    "BugBuzz": {"Name": "Bug Buzz", "Type": "Bug", "Power": 90},
+    "MegaHorn": {"Name": "Megahorn", "Type": "Bug", "Power": 120},
+    "SkyAttack": {"Name": "Sky Attack", "Type": "Flying", "Power": 140},
+    "HyperBeam": {"Name": "Hyper Beam", "Type": "Normal", "Power": 150}
 }
 BattlePokemon = ["Pidgey", "Rattata", "Caterpie", "Weedle", "Spearow"]
 PidgeyStats = {"Name": "Pidgey", "Type": "Flying", "HP": 40, "MaxHP": 40, "Attack": 45, "Defense": 40, "Speed": 56, "Weakness": ["Electric", "Ice", "Rock"], "Resistance": ["Grass", "Fighting", "Bug"]}
