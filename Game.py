@@ -38,8 +38,10 @@ try:
         SecondPokemon = pickle.load(f)
         SecondPokemonStats = pickle.load(f)
         SecondPokemonMoves = pickle.load(f)
+        SecondPokemonXp = pickle.load(f)
+        SecondPokemonLevel = pickle.load(f)
+        SecondPokemonXpNeeded = pickle.load(f)
         print(f"Welcome Back! You last saved with {ChosenPokemon} at level {Level}.")
-
         print(f"{ChosenPokemon}'s stats are:")
         time.sleep(0.5)
         for stat, value in Pokemonstats.items():
@@ -112,10 +114,13 @@ except EOFError:
     Location = TemplateSaveData.Stats[12]
     AccessableLocations = TemplateSaveData.Stats[13]
     half_length = len(AccessableLocations) // 2
-    PokemonOnTeam = TemplateSaveData.PokeomnOnTeam
+    PokemonOnTeam = TemplateSaveData.PokemonOnTeam
     SecondPokemon = TemplateSaveData.Stats[14]
     SecondPokemonStats = TemplateSaveData.Stats[15]
     SecondPokemonMoves = TemplateSaveData.SecondPokemonMoves
+    SecondPokemonXp = TemplateSaveData.Stats[16]
+    SecondPokemonLevel = TemplateSaveData.Stats[17]
+    SecondPokemonXpNeeded = TemplateSaveData.Stats[18]
 except FileNotFoundError:
     
     print("No File Found")
@@ -140,10 +145,13 @@ except FileNotFoundError:
     Location = TemplateSaveData.Stats[12]
     AccessableLocations = TemplateSaveData.Stats[13]
     half_length = len(AccessableLocations) // 2
-    PokemonOnTeam = TemplateSaveData.PokeomnOnTeam
+    PokemonOnTeam = TemplateSaveData.PokemonOnTeam
     SecondPokemon = TemplateSaveData.Stats[14]
     SecondPokemonStats = TemplateSaveData.Stats[15]
     SecondPokemonMoves = TemplateSaveData.SecondPokemonMoves
+    SecondPokemonXp = TemplateSaveData.Stats[16]
+    SecondPokemonLevel = TemplateSaveData.Stats[17]
+    SecondPokemonXpNeeded = TemplateSaveData.Stats[18]
     with open(savefile, 'wb') as f:
         pickle.dump(ChosenPokemon, f)
         pickle.dump(Pointinggame, f)
@@ -168,6 +176,9 @@ except FileNotFoundError:
         pickle.dump(SecondPokemon, f)
         pickle.dump(SecondPokemonStats, f)
         pickle.dump(SecondPokemonMoves, f)
+        pickle.dump(SecondPokemonXp, f)
+        pickle.dump(SecondPokemonLevel, f)
+        pickle.dump(SecondPokemonXpNeeded, f)
    # Assign the template data to 'data' for immediate use
     print(f"New file created with name {savefile}") # Handle case where file doesn't exist yet
 def save():
@@ -195,6 +206,9 @@ def save():
         pickle.dump(SecondPokemon, f)
         pickle.dump(SecondPokemonStats, f)
         pickle.dump(SecondPokemonMoves, f)
+        pickle.dump(SecondPokemonXp, f)
+        pickle.dump(SecondPokemonLevel, f)
+        pickle.dump(SecondPokemonXpNeeded, f)
 Playing = True
 while Playing:       
     if Pointinggame == 1:
@@ -282,9 +296,9 @@ while Playing:
     elif Pointinggame == 4:
         print(f"{RivalName}: Let's see how strong your {ChosenPokemon} is against my {Rivalpokemon}!")
         time.sleep(0.5)
-
+        Rivalstats['HP'] = Rivalstats['MaxHP']
         Battletype = "Rival"
-        result = battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp, XpToNextLevel, RivalName, Rivalpokemon, Pokemontype, Pokemonstats, Rivalstats, Moves, AvaliableAttacks)
+        result = battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp, XpToNextLevel, RivalName, Rivalpokemon, Pokemontype, Pokemonstats, Rivalstats, Moves, AvaliableAttacks, PokemonOnTeam, SecondPokemon, SecondPokemonStats, SecondPokemonMoves)
         if result == 0:
             print(f"You won the battle against {RivalName}!")
             time.sleep(0.5)
@@ -294,10 +308,12 @@ while Playing:
 
             print(f"You gained {(5*(Level**3))//10} Xp! You Also Recieved {(4*(Level**3))//10} Coins!")
             time.sleep(0.5)
-
+            if SecondPokemon != "None":
+                SecondPokemonXp += (5*(Level**3))//10
+                print(f"{SecondPokemon} gained {(5*(Level**3))//10} Xp!")
             Coins += (4*(Level**3))//10
             Xp += (5*(Level**3))//10
-            Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks = level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks)
+            ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks, SecondPokemonXp, SecondPokemonLevel, SecondPokemonXpNeeded, SecondPokemon, SecondPokemonStats, SecondPokemonMoves = level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks, SecondPokemonXp, SecondPokemonLevel, SecondPokemonXpNeeded, SecondPokemon, SecondPokemonStats, SecondPokemonMoves)
             save()
             Pointinggame = 5
         else:
@@ -324,7 +340,7 @@ while Playing:
 
         Pointinggame = 6
         save()
-    if Pointinggame == 6:
+    elif Pointinggame == 6:
         print("Well Done!")
         time.sleep(0.5)
         print("Now, you can explore the world of Pokemon!")
@@ -339,7 +355,7 @@ while Playing:
         time.sleep(0.5)
         Pointinggame = 7
         save()
-    if Pointinggame == 7:
+    elif Pointinggame == 7:
         Location = "Pallet Town"
         print(f"You are currently in {Location}")
         AccessableLocations = ["Route 1", "Route 21", "route 1", "route 21"]
@@ -358,17 +374,45 @@ while Playing:
                     else:
                         print("You Are Not High Enough Level To Access This Location")
                         continue
-                Location = AccessableLocations[valid_walkchoices.index(WalkTo.lower())]
                 print(f"While walking to {Location}, you encounter a Pokemon!")
-                SecondPokemonStats, SecondPokemon,  PokemonOnTeam, Battlepokemon, SecondPokemonMoves= catchPokemon(SecondPokemonStats, SecondPokemon, PokemonOnTeam, TemplateSaveData.BattlePokemon, SecondPokemonMoves)
-                print(f"You caught {SecondPokemon}!")
-                print("The Pokemon on your team are:")
-                for i in range(len(PokemonOnTeam)):
-                    print(f"  {PokemonOnTeam[i]}")
-                print(Location)
-                Picking = False
+                result, SecondPokemonStats, SecondPokemon,  PokemonOnTeam, Battlepokemon, SecondPokemonMoves, Balls= catchPokemon(SecondPokemonStats, SecondPokemon, PokemonOnTeam, TemplateSaveData.BattlePokemon, SecondPokemonMoves, Balls)
+                if result == 1:
+                    print(f"You caught {SecondPokemon}!")
+                    print(f"{SecondPokemon}'s stats are:")
+                    for stat, value in SecondPokemonStats.items():
+                        if stat not in ["Weakness", "Resistance"]:
+                            if stat != "MaxHP":
+                                print(f"  {stat}: {value}")
+                                time.sleep(0.5)
+
+                    if isinstance(SecondPokemonStats["Weakness"], list):
+                        print("  Weakness:", ", ".join(SecondPokemonStats["Weakness"]))
+                    else:
+                        print("  Weakness:", SecondPokemonStats["Weakness"])
+                    time.sleep(0.5)
+                    if isinstance(SecondPokemonStats["Resistance"], list):
+                        print("  Resistance:", ", ".join(SecondPokemonStats["Resistance"]))
+                    
+                    else:
+                        print("  Resistance:", SecondPokemonStats["Resistance"])
+                    print(f"{SecondPokemon}'s moves are:")
+                    for move in SecondPokemonMoves:
+                        print(f"  {move['Name']} - Type: {move['Type']}, Power: {move['Power']}")
+                        print("The Pokemon on your team are:")
+                        for i in range(len(PokemonOnTeam)):
+                            print(f"  {PokemonOnTeam[i]}")
+                    Picking = False
+                elif result == 0:
+                    print("You did not have space for a second pokemon")
+                    Picking = False
+                else:
+                    print("Go to a pokeshop to get more pokeballs")
+                Pointinggame = 8
+                Location = WalkTo.capitalize()
             else:
                 print("Invalid choice, try again")
+    elif Pointinggame == 8:
+        print(f"You are now at {Location}")
         Playing = False
 print("End of Demo, thank you for playing!")
 Pokemonstats['HP'] = Pokemonstats['MaxHP']
