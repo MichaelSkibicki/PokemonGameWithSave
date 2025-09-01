@@ -374,6 +374,7 @@ while Playing:
                     else:
                         print("You Are Not High Enough Level To Access This Location")
                         continue
+                Location = WalkTo.capitalize()
                 print(f"While walking to {Location}, you encounter a Pokemon!")
                 result, SecondPokemonStats, SecondPokemon,  PokemonOnTeam, Battlepokemon, SecondPokemonMoves, Balls= catchPokemon(SecondPokemonStats, SecondPokemon, PokemonOnTeam, TemplateSaveData.BattlePokemon, SecondPokemonMoves, Balls)
                 if result == 1:
@@ -413,6 +414,85 @@ while Playing:
                 print("Invalid choice, try again")
     elif Pointinggame == 8:
         print(f"You are now at {Location}")
+        if Location == "Route 1":
+            AccessableLocations = ["Pallet town", "Viridian city", "pallet town", "viridian city"]
+            valid_walkchoices = [p.lower() for p in AccessableLocations]
+            print("Accessable Locations:")
+            half_length = len(AccessableLocations) // 2
+            for i in range(half_length):
+                print(f"  {AccessableLocations[i]}")
+            Picking = True
+            while Picking:
+                WalkTo = input("Where do you want to go? ")
+                if WalkTo in AccessableLocations:
+                    Location = WalkTo.capitalize()
+                    print(f"While walking to {Location}, you encounter a pokemon trainer")
+                    Battletype = "Regular"
+                    result = battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp, XpToNextLevel, RivalName, Rivalpokemon, Pokemontype, Pokemonstats, Rivalstats, Moves, AvaliableAttacks, PokemonOnTeam, SecondPokemon, SecondPokemonStats, SecondPokemonMoves)
+                    if result == 0:
+                        print(f"You won the battle against the Trainer!")
+                        time.sleep(0.5)
+
+                        print(f"Trainer: Wow! You're really strong! I guess I'll let you go this time...")
+                        time.sleep(0.5)
+
+                        print(f"You gained {(5*(Level**3))//10} Xp! You Also Recieved {(4*(Level**3))//10} Coins!")
+                        time.sleep(0.5)
+                        if SecondPokemon != "None":
+                            SecondPokemonXp += (5*(Level**3))//10
+                            print(f"{SecondPokemon} gained {(5*(Level**3))//10} Xp!")
+                        Coins += (4*(Level**3))//10
+                        Xp += (5*(Level**3))//10
+                        ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks, SecondPokemonXp, SecondPokemonLevel, SecondPokemonXpNeeded, SecondPokemon, SecondPokemonStats, SecondPokemonMoves = level_up(ChosenPokemon, Level, Xp, XpToNextLevel, Pokemonstats, Moves, AvaliableAttacks, SecondPokemonXp, SecondPokemonLevel, SecondPokemonXpNeeded, SecondPokemon, SecondPokemonStats, SecondPokemonMoves)
+                        save()
+                        Picking = False
+                        Pointinggame = 9
+
+                    else:
+                        print(f"You lost the battle against the Trainer. Better luck next time!")
+                        Coins -= 20
+                        print("You give 20 coins to the winner")
+                        time.sleep(0.5)
+                        Picking = False
+                        print(f"You rush to a pokemon center in {Location}")
+                        Pokemonstats["HP"] = Pokemonstats["MaxHP"]
+                        if SecondPokemon != "None":
+                            SecondPokemonStats["HP"] = SecondPokemonStats["MaxHP"]
+                        print("Your Pokemon were fully healed")
+                        Pointinggame = 9
+
+    elif Pointinggame == 9:
+        if Location == "Pallet town":
+            Pointinggame = 7
+        elif Location == "Viridian city":
+            Pointinggame = 10
+    elif Pointinggame == 10:   
+        print(f"You are now in {Location}")
+        Picking = True
+        while Picking:
+            ActionChoices = ["shop", "pokecenter", "gym", "exit", "save"]
+            print("Here are the places you can go to, or actions you can do:")
+            for i in range(len(ActionChoices)):
+                print(f"  {ActionChoices[i].capitalize()}")
+            goto = input("What do you want to do? ")
+            if goto.lower() in  ActionChoices:
+                if goto.lower() == "save":
+                    save()
+                    sys.exit()
+                elif goto.lower() == "shop":
+                    print("Feature Not Implemented Yet")
+                elif goto.lower() == "pokecenter":
+                    print("Your pokemon get fully healed!")
+                    Pokemonstats["HP"] = Pokemonstats["MaxHP"]
+                    if SecondPokemon != "None":
+                        SecondPokemonStats["HP"] = SecondPokemonStats["MaxHP"]
+                elif goto.lower() == "gym":
+                    print("Feature Not Implemented Yet")
+                elif goto.lower() == "exit":
+                    print("Feature Not Implement Yet")
+            else:
+                print("Invalid choice, try again")
+
         Playing = False
 print("End of Demo, thank you for playing!")
 Pokemonstats['HP'] = Pokemonstats['MaxHP']

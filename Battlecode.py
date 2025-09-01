@@ -264,6 +264,7 @@ def battlecode(Battletype, Potions, Balls, Coins, ChosenPokemon, Name, Level, Xp
             ChosenBattlePokemonStats = TemplateSaveData.WeedleStats
         else:
             ChosenBattlePokemonStats = TemplateSaveData.SpearowStats
+        ChosenBattlePokemonStats["HP"] = ChosenBattlePokemonStats["MaxHP"]
         print(f"A wild {BattleChoice} appeared!")
         time.sleep(0.5)
         if ChosenBattlePokemonStats['Speed'] >= ChosenBattlePokemonStats['Speed']:
