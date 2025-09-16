@@ -495,6 +495,5 @@ while Playing:
 
         Playing = False
 print("End of Demo, thank you for playing!")
-Pokemonstats['HP'] = Pokemonstats['MaxHP']
 save()
 time.sleep(0.5)
